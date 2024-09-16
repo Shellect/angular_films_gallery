@@ -1,0 +1,5 @@
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-4">
+    @for (film of filmsData?.Search; track film.imdbID) {
+        <app-film-card [film]="film" />
+    }
+</div>

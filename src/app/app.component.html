@@ -1,1 +1,8 @@
-<h1 class="text-danger">Hello world!</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3 p-3">
+            <app-search-form  (onLoadEvent)="loadFilms($event)" />
+        </div>
+    </div>
+    <app-films-gallery [filmsData]="filmsData" />
+</div>
