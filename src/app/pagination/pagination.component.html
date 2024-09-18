@@ -1,0 +1,19 @@
+<nav class="navbar">
+    <div class="container-fluid justify-content-center">
+        <ul class="pagination">
+            @if (pages.length > 0) {
+                <li class="page-item">
+                    <button type="button" class="page-link">Previous</button>
+                </li>
+                @for (page of pages; track $index) {
+                <li class="page-item">
+                    <button type="button" class="page-link">{{page}}</button>
+                </li>
+                }
+                <li class="page-item">
+                    <button type="button" class="page-link" (click)="changePage(currentPage + 1)">Next</button>
+                </li>
+            }
+        </ul>
+    </div>
+</nav>
