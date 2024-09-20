@@ -1,26 +1,24 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { Response } from '../definitions';
-import { BehaviorSubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {environment} from 'environments/environment';
+import {FilmsSearchResponse} from 'definitions';
+import {BehaviorSubject} from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class SearchFormService {
+export class SearchService {
   private searchQuery: string = '';
   private type: string = 'movie';
   private pageNumber: number = 1;
-  private filmsSubject = new BehaviorSubject<Response | null>(null);
+  private filmsSubject = new BehaviorSubject<FilmsSearchResponse | null>(null);
   public filmsSubject$ = this.filmsSubject.asObservable();
 
-  async searchTitle(s: string, type: string): Promise<Response> {
-    this.searchQuery = s;
-    this.type = type;
+  async searchTitle(s: string | undefined, type: string | undefined): Promise<FilmsSearchResponse> {
+    this.searchQuery = s || '';
+    this.type = type || 'movie';
     this.pageNumber = 1;
-    const response = await this.fetchFilms();
-    // this.filmsSubject.next(response);
-    return response;
+    return await this.fetchFilms();
   }
 
   async changePage(nextPage: number): Promise<void> {
@@ -28,7 +26,7 @@ export class SearchFormService {
     this.filmsSubject.next(await this.fetchFilms());
   }
 
-  private async fetchFilms(): Promise<Response> {
+  private async fetchFilms(): Promise<FilmsSearchResponse> {
     const response = await fetch(
       'http://www.omdbapi.com/?apikey='
       + environment.omdb_api

@@ -1,27 +1,26 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SearchFormComponent } from './search-form/search-form.component';
-import { FilmsGalleryComponent } from './films-gallery/films-gallery.component';
-import { SearchFormService } from './search-form/search-form.service';
-import { Response, Film } from './definitions';
+import { SearchFormComponent, GalleryComponent } from 'components';
+import { SearchService } from 'services';
+import { FilmsSearchResponse, Film } from 'definitions';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SearchFormComponent, FilmsGalleryComponent],
+  imports: [RouterOutlet, SearchFormComponent, GalleryComponent],
   templateUrl: './app.component.html'
 })
 export class AppComponent {
   public films: Film[] = [];
   public pages: number[] = [];
 
-  constructor(private searchService: SearchFormService){
+  constructor(private searchService: SearchService){
     this.searchService.filmsSubject$.subscribe(
       response => this.loadFilms(response)
     )
   }
 
-  loadFilms(response: Response | null) {
+  loadFilms(response: FilmsSearchResponse | null) {
     if (!response) return;
     this.films = response.Search || [];
     let total = Math.ceil(Number(response.totalResults) / 10);

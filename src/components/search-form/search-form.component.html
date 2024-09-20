@@ -1,10 +1,13 @@
-<form>
+<form [formGroup]="searchForm" (ngSubmit)="action()">
     <div class="mt-3 row">
         <div class="col-3">
             <label for="search-text" class="form-label">Название :</label>
         </div>
         <div class="col-9">
-            <input id="search-text" class="form-control" [(ngModel)]="s" name="s">
+            <input id="search-text" class="form-control" formControlName="s" name="s">
+            @if (s?.invalid && s?.dirty) {
+            <span class="form-text text-danger"></span>
+            }
         </div>
     </div>
 
@@ -13,7 +16,7 @@
             <label for="type-select" class="form-label">Тип :</label>
         </div>
         <div class="col-9">
-            <select [(ngModel)]="type" name="type" id="type-select" class="form-select">
+            <select id="type-select" class="form-select" formControlName="type" name="type">
                 <option value="movie">Фильм</option>
                 <option value="series">Сериал</option>
                 <option value="episode">Эпизод</option>
@@ -22,7 +25,7 @@
     </div>
 
     <div class="mt-3 d-grid">
-        <button (click)="action()" type="button" class="btn btn-success">Поиск</button>
+        <button type="submit" class="btn btn-success">Поиск</button>
     </div>
 
 </form>

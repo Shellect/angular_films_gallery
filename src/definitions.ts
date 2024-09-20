@@ -1,4 +1,4 @@
-export type Response = {
+export type FilmsSearchResponse = {
     Response: "True" | "False",
     Error?: string,
     Search?: Film[],

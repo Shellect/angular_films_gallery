@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SearchFormService } from '../search-form/search-form.service';
+import { SearchService } from 'services';
 
 @Component({
   selector: 'app-pagination',
@@ -9,7 +9,7 @@ import { SearchFormService } from '../search-form/search-form.service';
 export class PaginationComponent {
   @Input pages: number[] = [];
   public currentPage: number = 1;
-  constructor(private searchService: SearchFormService){}
+  constructor(private searchService: SearchService){}
 
   public changePage(nextPage: number) {
     this.searchService.changePage(nextPage);
