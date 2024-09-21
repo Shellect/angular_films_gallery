@@ -25,7 +25,7 @@ $pagination-active-border-color: $success-border-subtle;
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/root";
 
-// Bootstrap core
+// 6. Optionally include any other parts as needed
 @import "bootstrap/scss/utilities";
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";
@@ -61,10 +61,15 @@ $pagination-active-border-color: $success-border-subtle;
 // Helpers
 @import "bootstrap/scss/helpers";
 
-// Utilities
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
 @import "bootstrap/scss/utilities/api";
 
-
+// 8. Add additional custom code here
+body {
+  background-image: url("../public/bg.jpg");
+  background-size: cover;
+  background-position: top center;
+}
 
 
 

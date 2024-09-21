@@ -1,8 +1,3 @@
-<div class="container">
-    <div class="row">
-        <div class="col-6 offset-3 p-3">
-            <app-search-form (onLoadEvent)="loadFilms($event)" />
-        </div>
-    </div>
-    <app-gallery [films]="films" [pages]="pages" />
+<div id="main" class="container px-4">
+    <router-outlet/>
 </div>

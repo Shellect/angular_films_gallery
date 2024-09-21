@@ -1,14 +1,30 @@
-import {Component, Input} from '@angular/core';
-import {CardComponent, PaginationComponent} from 'components';
-import {Film} from 'definitions';
+import {Component} from '@angular/core';
+import {CardComponent, PaginationComponent, SearchFormComponent} from 'components';
+import {Film, FilmsSearchResponse} from 'definitions';
+import {SearchService} from "services";
 
 @Component({
     selector: 'app-gallery',
     standalone: true,
-    imports: [CardComponent, PaginationComponent],
+    imports: [SearchFormComponent, CardComponent, PaginationComponent],
     templateUrl: './gallery.component.html'
 })
 export class GalleryComponent {
-    @Input() films: Film[] = [];
-    @Input() pages: number[] = [];
+    public films: Film[] = [];
+    public pages: number[] = [];
+
+    constructor(private searchService: SearchService) {
+    }
+
+    ngOnInit() {
+        this.searchService.filmsSubject$.subscribe(
+            response => this.loadFilms(response)
+        )
+    }
+
+    loadFilms(response: FilmsSearchResponse | null) {
+        if (!response) return;
+        this.films = response.Search || [];
+        this.pages = this.searchService.getPagination(response.totalResults);
+    }
 }
