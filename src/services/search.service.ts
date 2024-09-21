@@ -3,8 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from 'environments/environment';
 import {FilmsSearchResponse} from 'definitions';
 import {BehaviorSubject, Observable} from 'rxjs';
-import * as http from "http";
-
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +10,7 @@ import * as http from "http";
 export class SearchService {
     private searchQuery: string = '';
     private type: string = 'movie';
-    private pageNumber: number = 1;
+    public pageNumber: number = 1;
     private filmsSubject = new BehaviorSubject<FilmsSearchResponse | null>(null);
     public filmsSubject$ = this.filmsSubject.asObservable();
 
@@ -28,7 +26,7 @@ export class SearchService {
 
     changePage(nextPage: number): void {
         this.pageNumber = nextPage;
-        this.fetchFilms().subscribe(data => this.filmsSubject.next(data))
+        this.fetchFilms().subscribe(data => this.filmsSubject.next(data));
     }
 
     private fetchFilms(): Observable<FilmsSearchResponse> {
