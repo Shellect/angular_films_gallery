@@ -28,12 +28,15 @@ export class SearchFormComponent {
         return this.searchForm.get("type");
     }
 
-    async action() {
-        const data = await this.searchService.searchTitle(this.s?.value, this.type?.value);
-        if (data.Response === "True") {
-            this.onLoadEvent.emit(data);
-        } else {
-            // TODO: В случае ошибки сервера показывать сообщение пользователю
-        }
+    action() {
+        const filmsSearchResponse$ = this.searchService.searchTitle(this.s?.value, this.type?.value);
+        filmsSearchResponse$.subscribe(data => {
+            if (data.Response === "True") {
+                this.onLoadEvent.emit(data);
+            } else {
+                // TODO: В случае ошибки сервера показывать сообщение пользователю
+            }
+        })
+
     }
 }
