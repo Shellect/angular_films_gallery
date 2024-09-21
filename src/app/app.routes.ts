@@ -1,7 +1,11 @@
 import { Routes } from '@angular/router';
-import {GalleryComponent} from "components";
+import {DetailsPageComponent, GalleryComponent} from "components";
 
 export const routes: Routes = [
+    {
+        path: "film/:id",
+        component: DetailsPageComponent
+    },
     {
         path: "**",
         component: GalleryComponent

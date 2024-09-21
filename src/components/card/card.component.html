@@ -10,6 +10,6 @@
         <p class="card-text"><small class="text-body-secondary">{{ film.Year }}</small></p>
     </div>
     <div class="d-grid card-footer bg-white border-0">
-        <button type="button" class="btn btn-success">Details</button>
+        <button [routerLink]="['/film', film.imdbID]" type="button" class="btn btn-success">Details</button>
     </div>
 </div>
