@@ -3,7 +3,7 @@
         <ul class="pagination">
             @if (pages.length > 0) {
             <li class="page-item">
-                <button type="button" class="page-link" (click)="changePage(1)">First</button>
+                <button type="button" class="page-link" (click)="changePage(1)">First ◀◀</button>
             </li>
                 @for (page of pages; track $index) {
             <li class="page-item">
@@ -17,7 +17,7 @@
             </li>
             }
             <li class="page-item">
-                <button type="button" class="page-link" (click)="changePage(pages.length)">Last</button>
+                <button type="button" class="page-link" (click)="changePage(pages.length)">▶▶ Last</button>
             </li>
             }
         </ul>
