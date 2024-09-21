@@ -17,6 +17,25 @@ export class SearchService {
     constructor(private http: HttpClient) {
     }
 
+    getPagination(totalResults?: string): number[] {
+        let total = Math.ceil(Number(totalResults) / 10);
+        let pages = [];
+        for (let i = 1; i <= total; i++) {
+            if (i > 2 && i < this.pageNumber - 3) {
+                pages.push(0);
+                i = this.pageNumber - 4;
+                continue;
+            }
+            if (i > this.pageNumber + 3 && i < total - 1) {
+                pages.push(0);
+                i = total - 2;
+                continue;
+            }
+            pages.push(i);
+        }
+        return pages;
+    }
+
     searchTitle(s: string | undefined, type: string | undefined): Observable<FilmsSearchResponse> {
         this.searchQuery = s || '';
         this.type = type || 'movie';
