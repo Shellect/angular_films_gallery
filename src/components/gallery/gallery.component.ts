@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CardComponent, PaginationComponent, SearchFormComponent} from 'components';
 import {Film, FilmsSearchResponse} from 'definitions';
 import {SearchService} from "services";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-gallery',
@@ -9,17 +10,22 @@ import {SearchService} from "services";
     imports: [SearchFormComponent, CardComponent, PaginationComponent],
     templateUrl: './gallery.component.html'
 })
-export class GalleryComponent {
+export class GalleryComponent implements OnInit, OnDestroy {
     public films: Film[] = [];
     public pages: number[] = [];
+    private subscription$!: Subscription;
 
     constructor(private searchService: SearchService) {
     }
 
     ngOnInit() {
-        this.searchService.filmsSubject$.subscribe(
+        this.subscription$ = this.searchService.filmsSubject$.subscribe(
             response => this.loadFilms(response)
         )
+    }
+
+    ngOnDestroy() {
+        this.subscription$.unsubscribe();
     }
 
     loadFilms(response: FilmsSearchResponse | null) {
